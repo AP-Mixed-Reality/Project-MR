@@ -137,8 +137,6 @@ GameObject:
   - component: {fileID: 292342832}
   - component: {fileID: 292342831}
   - component: {fileID: 292342830}
-  - component: {fileID: 292342829}
-  - component: {fileID: 292342833}
   - component: {fileID: 292342834}
   m_Layer: 31
   m_Name: RDoor
@@ -213,19 +211,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292342825}
   m_Mesh: {fileID: 8037769736807311723, guid: 69078f70fd0af7c4c9bb7b96a1aa001c, type: 3}
---- !u!114 &292342829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 292342825}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 509bb95ffd0f91c4d8beeaef49c1e96a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneToLoad: Forest
 --- !u!65 &292342830
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -396,21 +381,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &292342833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 292342825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fafa2b7d9967e64f821eaf5b4e2c4fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  glowMaterial: {fileID: 2100000, guid: b818a960ee037e84a9d811c67db3160a, type: 2}
-  originalMaterial: {fileID: 0}
-  doorRenderer: {fileID: 0}
 --- !u!114 &292342834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1580,6 +1550,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2147483648
   rayOrigin: {fileID: 0}
+  highlightMaterial: {fileID: 2100000, guid: b818a960ee037e84a9d811c67db3160a, type: 2}
 --- !u!4 &696715678 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8718302446126152263, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
