@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-public class DoorInteraction : MonoBehaviour
+public class DoorTeleport : MonoBehaviour
 {
     [SerializeField] private string sceneToLoad; // Name of the next scene
 
@@ -18,7 +18,7 @@ public class DoorInteraction : MonoBehaviour
     }
 
     private void OnDisable()
-    {
+    {   
         // Unsubscribe from the select event
         var interactable = GetComponent<XRBaseInteractable>();
         if (interactable != null)
@@ -29,6 +29,7 @@ public class DoorInteraction : MonoBehaviour
 
     private void OnSelectEntered(SelectEnterEventArgs args)
     {
+        Debug.Log("Door Interacted - loading scene: " + sceneToLoad);
         // Load the next scene when the door is grabbed
         if (!string.IsNullOrEmpty(sceneToLoad))
         {
