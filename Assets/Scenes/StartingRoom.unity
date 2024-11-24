@@ -393,6 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87933e42df5e5a84d9d5dc3f021b2cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneToLoad: Forest
 --- !u!1 &401995974
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,7 +955,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509bb95ffd0f91c4d8beeaef49c1e96a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: 
 --- !u!1 &645789461 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1670256624, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
@@ -1545,7 +1545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb4f7caa8d79ec459396c5a017c7a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayLength: 10
+  rayLength: 15
   interactionLayer:
     serializedVersion: 2
     m_Bits: 2147483648
@@ -2545,7 +2545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509bb95ffd0f91c4d8beeaef49c1e96a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: 
 --- !u!1 &1686269898
 GameObject:
   m_ObjectHideFlags: 0
