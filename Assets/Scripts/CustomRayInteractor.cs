@@ -39,6 +39,7 @@ public class CustomRayInteractor : MonoBehaviour
             }
 
             // Check for custom interaction script
+            //todo change to XR Input Manager's fire/grab/every other button
             var interactable = hit.collider.GetComponent<ICustomInteractable>();
             if (interactable != null)
             {
