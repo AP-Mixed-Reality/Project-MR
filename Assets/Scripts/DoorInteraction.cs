@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+
 public class DoorInteraction : MonoBehaviour, ICustomInteractable
 {
     [SerializeField] private string sceneToLoad;
@@ -16,7 +18,7 @@ public class DoorInteraction : MonoBehaviour, ICustomInteractable
             if (SceneExists(sceneToLoad))
             {
                 Debug.Log($"Loading scene: {sceneToLoad}");
-                // Optionally load the scene asynchronously for performance
+                // load the scene asynchronously for performance (does not help with Quest Link leaving game when scene changed)
                 StartCoroutine(LoadSceneAsync(sceneToLoad));
             }
             else
