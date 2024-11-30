@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Anchor
   - Terrain
+  - Fruit
+  - EdibleArea
   layers:
   - Default
   - TransparentFX

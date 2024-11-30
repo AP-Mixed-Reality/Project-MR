@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Farm;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,10 +13,13 @@ public class AnimalMovement : MonoBehaviour
     public bool hasBeenFast = false;
     public float lastTurnAt = 0;
     public bool isPaused = false;
+
+    public BoxCollider collider;
     
     // Start is called before the first frame update
     void Start()
     {
+        
     }
     
     // Update is called once per frame
@@ -37,6 +41,31 @@ public class AnimalMovement : MonoBehaviour
         else
         {
             hasBeenFast = true;
+        }
+
+        GameObject otherFruit = null;
+        double closestDistance = Double.MaxValue;
+        // Find game object that has the tag "Fruit" that is currently in the collider and is less than 5 units of distance away
+        foreach (var fruit in GameObject.FindGameObjectsWithTag("Fruit"))
+        {
+            if (fruit.GetComponent<FruitCollissionManager>().CanBeEaten && Vector3.Distance(gameObject.transform.position, fruit.transform.position) < closestDistance)
+            {
+                closestDistance = Vector3.Distance(gameObject.transform.position, fruit.transform.position);
+                otherFruit = fruit;
+            }
+        }
+
+        if (closestDistance < .5)
+        {
+            Destroy(otherFruit);
+        }
+        
+        // Rotate to otherFruit if it exists
+        if (otherFruit != null)
+        {
+            var targetRotation = Quaternion.LookRotation (otherFruit.transform.position - transform.position);
+            var str = Mathf.Min(0.5f * Time.deltaTime, 1);
+            transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, str);
         }
             
         rb.AddForce(transform.forward * speed);
