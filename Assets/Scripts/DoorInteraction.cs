@@ -31,7 +31,7 @@ public class DoorInteraction : MonoBehaviour, ICustomInteractable
             Debug.LogWarning("Scene to load is not set!");
         }
     }
-    
+
     //check if name exists in build settings
     private bool SceneExists(string sceneName)
     {
