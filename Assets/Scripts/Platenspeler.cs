@@ -6,13 +6,10 @@ public class PlatenspelerScript : MonoBehaviour
 
     void Start()
     {
-        // Haal de AudioSource-component op
         audioSource = GetComponent<AudioSource>();
 
-        // Controleer of er een AudioClip is toegewezen
         if (audioSource.clip != null)
         {
-            // Speel de muziek af
             audioSource.Play();
         }
         else
