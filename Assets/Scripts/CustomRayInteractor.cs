@@ -53,7 +53,7 @@ public class CustomRayInteractor : MonoBehaviour
         }
     }
 
-    // restore original materials
+    // Method to restore original materials
     private void RestoreMaterials()
     {
         foreach (var entry in originalMaterials)
