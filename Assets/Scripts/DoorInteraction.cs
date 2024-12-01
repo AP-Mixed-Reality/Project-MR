@@ -2,11 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.InputSystem; // Use the new Input System namespace
 
 public class DoorInteraction : MonoBehaviour, ICustomInteractable
 {
     [SerializeField] private string sceneToLoad;
+
+    // Input Action for Grab (configured in Unity's Input System)
+    [SerializeField] private InputAction grabAction;
+
+    private void OnEnable()
+    {
+        grabAction.Enable(); // Enable the action when the object is enabled
+    }
+
+    private void OnDisable()
+    {
+        grabAction.Disable(); // Disable the action when the object is disabled
+    }
 
     public void OnInteract()
     {
@@ -17,9 +30,13 @@ public class DoorInteraction : MonoBehaviour, ICustomInteractable
         {
             if (SceneExists(sceneToLoad))
             {
-                Debug.Log($"Loading scene: {sceneToLoad}");
-                // load the scene asynchronously for performance (does not help with Quest Link leaving game when scene changed)
-                StartCoroutine(LoadSceneAsync(sceneToLoad));
+                Debug.Log("Scene exists");
+
+                if (grabAction.WasPressedThisFrame()) // Replacing XRInputManager logic
+                {
+                    Debug.Log($"Grab button pressed, loading scene: {sceneToLoad}");
+                    StartCoroutine(LoadSceneAsync(sceneToLoad));
+                }
             }
             else
             {
@@ -31,8 +48,8 @@ public class DoorInteraction : MonoBehaviour, ICustomInteractable
             Debug.LogWarning("Scene to load is not set!");
         }
     }
-    
-    //check if name exists in build settings
+
+    // Check if the scene name exists in build settings
     private bool SceneExists(string sceneName)
     {
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
@@ -48,7 +65,7 @@ public class DoorInteraction : MonoBehaviour, ICustomInteractable
         return false;
     }
 
-    //avoid freezing the game during scene loading
+    // Avoid freezing the game during scene loading
     private IEnumerator LoadSceneAsync(string sceneName)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
