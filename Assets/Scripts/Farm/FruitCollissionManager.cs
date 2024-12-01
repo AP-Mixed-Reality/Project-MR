@@ -33,6 +33,7 @@ namespace Farm
 
                 if (!hasBeenInTrigger)
                 {
+                    Debug.Log("spawning new fruit");
                     hasBeenInTrigger = true;
                     Instantiate(tomatoPrefab, newTomatoSpawnLocation, Quaternion.identity);
                 }

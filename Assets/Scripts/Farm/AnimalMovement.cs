@@ -13,8 +13,7 @@ public class AnimalMovement : MonoBehaviour
     public bool hasBeenFast = false;
     public float lastTurnAt = 0;
     public bool isPaused = false;
-
-    public BoxCollider collider;
+    public AudioClip munchClip;
     
     // Start is called before the first frame update
     void Start()
@@ -55,8 +54,14 @@ public class AnimalMovement : MonoBehaviour
             }
         }
 
-        if (closestDistance < .5)
+        if (closestDistance < 1)
         {
+            AudioSource audioSource = GetComponent<AudioSource>();
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = munchClip;
+                audioSource.Play();    
+            }
             Destroy(otherFruit);
         }
         
