@@ -965,11 +965,11 @@ Transform:
   m_GameObject: {fileID: 508680262}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0.381, y: 1.1, z: -2.985}
+  m_LocalPosition: {x: 0.2819392, y: 0.22623843, z: -0.10513544}
   m_LocalScale: {x: 100, y: 100.000046, z: 100.000046}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1686269902}
+  m_Father: {fileID: 1298341579}
   m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
 --- !u!23 &508680264
 MeshRenderer:
@@ -2061,7 +2061,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2331672069166402266, guid: 2f20e9b17e3c892419d73072a4223c83, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.7232358
+      value: -2.643
       objectReference: {fileID: 0}
     - target: {fileID: 2331672069166402266, guid: 2f20e9b17e3c892419d73072a4223c83, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2386,7 +2386,7 @@ Transform:
   m_GameObject: {fileID: 1236113584}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0.7071068, z: 0, w: 0}
-  m_LocalPosition: {x: 0.00065, y: -0.01823, z: 0.00507}
+  m_LocalPosition: {x: 0.00065, y: -0.01978, z: 0.00507}
   m_LocalScale: {x: 0.0006, y: 0.0001, z: 0.0003}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2582,6 +2582,40 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &1298341578
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1298341579}
+  m_Layer: 0
+  m_Name: The Three Doors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1298341579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298341578}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.06093922, y: 0.8737616, z: -2.8798645}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 292342826}
+  - {fileID: 508680263}
+  - {fileID: 1667897626}
+  m_Father: {fileID: 1686269902}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1354924723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3341,11 +3375,11 @@ Transform:
   m_GameObject: {fileID: 1667897625}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -1.25, y: 1.1, z: -2.975}
+  m_LocalPosition: {x: -1.1890608, y: 0.22623843, z: -0.09513545}
   m_LocalScale: {x: 100, y: 100.000046, z: 100.000046}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1686269902}
+  m_Father: {fileID: 1298341579}
   m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
 --- !u!23 &1667897627
 MeshRenderer:
@@ -3717,9 +3751,7 @@ Transform:
   - {fileID: 1950335537}
   - {fileID: 1555593464}
   - {fileID: 1569731549}
-  - {fileID: 292342826}
-  - {fileID: 508680263}
-  - {fileID: 1667897626}
+  - {fileID: 1298341579}
   - {fileID: 2144738748}
   - {fileID: 1197342303}
   - {fileID: 853965281}
@@ -4685,7 +4717,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1686269902}
+    m_TransformParent: {fileID: 1298341579}
     m_Modifications:
     - target: {fileID: 1479356774035543518, guid: 6e539250bf585df4b9ca71bdbccbcf31, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4697,7 +4729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1479356774035543518, guid: 6e539250bf585df4b9ca71bdbccbcf31, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.984
+      value: -0.10413551
       objectReference: {fileID: 0}
     - target: {fileID: 1479356774035543518, guid: 6e539250bf585df4b9ca71bdbccbcf31, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4714,6 +4746,14 @@ PrefabInstance:
     - target: {fileID: 1479356774035543518, guid: 6e539250bf585df4b9ca71bdbccbcf31, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479356774035543518, guid: 6e539250bf585df4b9ca71bdbccbcf31, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.7909392
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479356774035543518, guid: 6e539250bf585df4b9ca71bdbccbcf31, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.22623849
       objectReference: {fileID: 0}
     - target: {fileID: 1479356774035543518, guid: 6e539250bf585df4b9ca71bdbccbcf31, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
