@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Anchor
+  - Terrain
+  - Fruit
+  - EdibleArea
   - RightHandRay
   layers:
   - Default
