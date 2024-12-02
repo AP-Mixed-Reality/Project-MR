@@ -8,6 +8,7 @@ TagManager:
   - Terrain
   - Fruit
   - EdibleArea
+  - RightHandRay
   layers:
   - Default
   - TransparentFX
@@ -40,7 +41,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Teleport
   m_SortingLayers:
   - name: Default
     uniqueID: 0
