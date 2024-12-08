@@ -70,7 +70,10 @@ public class AnimalMovement : MonoBehaviour
         {
             var targetRotation = Quaternion.LookRotation (otherFruit.transform.position - transform.position);
             var str = Mathf.Min(0.5f * Time.deltaTime, 1);
-            transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, str);
+            var newRotation = Quaternion.Lerp (transform.rotation, targetRotation, str);
+            newRotation.x = transform.rotation.x;
+            newRotation.z = transform.rotation.z;
+            transform.rotation = newRotation;
         }
             
         rb.AddForce(transform.forward * speed);
