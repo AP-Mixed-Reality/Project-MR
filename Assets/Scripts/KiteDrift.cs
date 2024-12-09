@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class KiteDriftWithEnhancements : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class KiteDriftWithEnhancements : MonoBehaviour
     public float windChangeFrequency = 5f; // Time in seconds for wind direction to change
     public float targetHeightOffset = 3f; // Preferred height above the player
     public float heightCorrectionStrength = 0.5f; // Strength of the height correction force
+    public float maxVelocity = 10f; // Maximum speed the kite can reach
+    public InputAction triggerAction; // Action for the trigger input
+    public float pushForce = 10f; // Force to push the kite upwards
 
     private Rigidbody rb; // Reference to the kite's Rigidbody
     private Vector3 windDirection = Vector3.right; // Wind blowing direction
@@ -26,54 +30,61 @@ public class KiteDriftWithEnhancements : MonoBehaviour
         // Get the Rigidbody component
         rb = GetComponent<Rigidbody>();
 
+
+        triggerAction.Enable();
+
         // Set an initial random wind direction
         windDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
     }
 
     void FixedUpdate()
     {
+        // Check if the trigger is pressed
+        if (triggerAction.ReadValue<float>() > 0)
+        {
+            PushKiteUpwards();
+        }
         UpdateWindDirection();
         ApplyWindForce();
         SimulateDrift();
         ApplyHeightCorrection();
         EnforceBoundaries();
+        ClampVelocity();
     }
 
     private void UpdateWindDirection()
     {
-        // Change wind direction periodically
         windChangeTimer += Time.deltaTime;
         if (windChangeTimer >= windChangeFrequency)
         {
             windChangeTimer = 0f;
             windDirection = Quaternion.Euler(0, Random.Range(-30f, 30f), 0) * windDirection;
             windDirection.Normalize();
+
+            // Prevent downward wind direction
+            if (windDirection.y < 0) windDirection.y = 0;
         }
     }
 
     private void ApplyWindForce()
     {
-        // Apply a constant wind force in the current wind direction
         rb.AddForce(windDirection * windStrength);
     }
 
     private void SimulateDrift()
     {
-        // Horizontal oscillation (sway)
         swayTimer += Time.deltaTime * swayFrequency;
         float sway = Mathf.Sin(swayTimer) * driftRange;
 
-        // Add randomness to horizontal drift
         float randomDrift = Random.Range(-randomDriftFactor, randomDriftFactor);
 
-        // Vertical oscillation (fluctuation)
         verticalTimer += Time.deltaTime * verticalFrequency;
         float verticalFluctuation = Mathf.Sin(verticalTimer) * verticalFluctuationRange;
 
-        // Calculate total drift force
-        Vector3 driftOffset = new Vector3(sway + randomDrift, verticalFluctuation, 0);
+        // Reduce vertical fluctuation near boundaries
+        float heightFactor = Mathf.Clamp01(transform.position.y - 1);
 
-        // Apply the drift force
+        Vector3 driftOffset = new Vector3(sway + randomDrift, verticalFluctuation * heightFactor, 0);
         rb.AddForce(driftOffset * driftSpeed);
     }
 
@@ -81,14 +92,11 @@ public class KiteDriftWithEnhancements : MonoBehaviour
     {
         if (player == null) return;
 
-        // Calculate the target height based on the player's position
         float targetHeight = player.position.y + targetHeightOffset;
-
-        // Calculate the correction force to move the kite closer to the target height
         float heightDifference = targetHeight - transform.position.y;
-        Vector3 heightCorrection = new Vector3(0, heightDifference * heightCorrectionStrength, 0);
 
-        // Apply the height correction force
+        // Gravity compensation and height correction
+        Vector3 heightCorrection = new Vector3(0, heightDifference * heightCorrectionStrength, 0);
         rb.AddForce(heightCorrection);
     }
 
@@ -96,15 +104,35 @@ public class KiteDriftWithEnhancements : MonoBehaviour
     {
         if (player == null) return;
 
-        // Calculate the kite's position relative to the player
-        Vector3 relativePosition = transform.position - player.position;
 
-        // Clamp the position to stay within the boundary box
-        relativePosition.x = Mathf.Clamp(relativePosition.x, -boundarySize / 2, boundarySize / 2);
-        relativePosition.y = Mathf.Clamp(relativePosition.y, 0, boundarySize / 2); // Restrict to above the player
-        relativePosition.z = Mathf.Clamp(relativePosition.z, -boundarySize / 2, boundarySize / 2);
+        // Correct Rigidbody velocity if it tries to escape the boundaries
+        Vector3 velocity = rb.velocity;
 
-        // Update the kite's position to respect the boundaries
-        transform.position = player.position + relativePosition;
+        // Prevent downward motion if at minimum height
+        if (transform.position.y <= 1f && velocity.y < 0)
+        {
+            velocity.y = 100; // Stop downward motion
+        }
+
+        rb.velocity = velocity;
+    }
+
+    private void ClampVelocity()
+    {
+        // Clamp overall velocity
+        if (rb.velocity.magnitude > maxVelocity)
+        {
+            rb.velocity = rb.velocity.normalized * maxVelocity;
+        }
+    }
+    private void PushKiteUpwards()
+    {
+        rb.AddForce(Vector3.up * pushForce, ForceMode.Impulse);
+    }
+
+    void OnDestroy()
+    {
+        // Disable the InputAction when the script is destroyed
+        triggerAction.Disable();
     }
 }
