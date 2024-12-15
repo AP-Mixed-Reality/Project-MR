@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
 
 public class CustomRayInteractor : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class CustomRayInteractor : MonoBehaviour
     [SerializeField] private Material highlightMaterial; // Material to apply on hit
     private Dictionary<Renderer, Material> originalMaterials = new Dictionary<Renderer, Material>();
 
+    public List<GameObject> controllers = new();
 
     private void Update()
     {
@@ -36,6 +39,7 @@ public class CustomRayInteractor : MonoBehaviour
                     originalMaterials[renderer] = renderer.material; // Store the original material
                 }
                 renderer.material = highlightMaterial; // Apply the highlight material
+                PlayHapticFeedback(12, 12.0f);
             }
 
             // Check for custom interaction script
@@ -61,5 +65,21 @@ public class CustomRayInteractor : MonoBehaviour
             entry.Key.material = entry.Value;
         }
         originalMaterials.Clear();
+    }
+    IEnumerator PlayHapticFeedback(int pulses, float duration)
+    {
+        // Decide how much time is between each pulse
+        float timeBetweenPulse = duration / pulses;
+        for (int i = 0; i < pulses; i++)
+        {
+            foreach (var controller in controllers)
+            {
+                HapticImpulsePlayer haptic = controller.GetComponent<HapticImpulsePlayer>();
+                bool success = haptic.SendHapticImpulse(1, 0.1f);
+                Debug.Log("sending pulse, success = " + success);
+            }
+
+            yield return new WaitForSeconds(timeBetweenPulse);
+        }
     }
 }
