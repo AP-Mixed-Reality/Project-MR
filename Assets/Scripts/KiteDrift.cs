@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
+using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
 
 public class KiteDriftWithEnhancements : MonoBehaviour
 {
@@ -20,9 +23,12 @@ public class KiteDriftWithEnhancements : MonoBehaviour
     public float pushForce = 10f; // Force to push the kite upwards
 
 
-    public Rigidbody spool;
-    public float manualMovementSpeed = 50f;
+    public Rigidbody spool; // The spools rb
+    public float manualMovementSpeed = 50f; 
     public float manualMovementAmplifier = 1f;
+
+    private UnityEngine.XR.InputDevice controller;
+    public float hapticDuration = 0.1f;
 
     private Quaternion spoolRotation;
     private Quaternion SpoolStartRotation;
@@ -39,7 +45,7 @@ public class KiteDriftWithEnhancements : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         SpoolStartRotation = spool.rotation;
 
-
+        controller = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
         triggerAction.Enable();
 
         // Set an initial random wind direction
@@ -168,5 +174,28 @@ public class KiteDriftWithEnhancements : MonoBehaviour
 
         // Apply the forces to the kite's Rigidbody
         rb.AddForce(new Vector3(0, verticalForce, horizontalForce), ForceMode.Acceleration);
+    }
+
+    private void ApplyHapticFeedback()
+    {
+        // Calculate velocity magnitude
+        Vector3 velocity = rb.velocity;
+        float totalVelocity = velocity.magnitude;
+
+        // Normalize intensity between 0 and 1
+        float intensity = Mathf.Clamp01(totalVelocity / maxVelocity);
+
+        // Send haptic feedback to both controllers
+        if (intensity > 0.1f) // Optional threshold to avoid weak feedback
+        {
+            SendHapticImpulse(controller, intensity, hapticDuration);
+        }
+    }
+    private void SendHapticImpulse(UnityEngine.XR.InputDevice device, float intensity, float duration)
+    {
+        if (device.isValid)
+        {
+            device.SendHapticImpulse(0, intensity, duration); // Channel 0 for default haptic feedback
+        }
     }
 }
