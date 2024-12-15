@@ -21,6 +21,8 @@ public class KiteDriftWithEnhancements : MonoBehaviour
 
 
     public Rigidbody spool;
+    public float manualMovementSpeed = 50f;
+    public float manualMovementAmplifier = 1f;
 
     private Quaternion spoolRotation;
     private Quaternion SpoolStartRotation;
@@ -154,17 +156,17 @@ public class KiteDriftWithEnhancements : MonoBehaviour
 
         // Extract the rotation differences on the X and Z axes
         float verticalRotation = deltaRotation.eulerAngles.z; // Spool X-axis affects kite Y-axis
-        float forwardRotation = deltaRotation.eulerAngles.x;  // Spool Z-axis affects kite Z-axis
+        float horizontalRotation = deltaRotation.eulerAngles.x;  // Spool Z-axis affects kite Z-axis
 
         // Adjust angles to range [-180, 180] for smooth transitions
         verticalRotation = Mathf.DeltaAngle(0, verticalRotation);
-        forwardRotation = Mathf.DeltaAngle(0, forwardRotation);
+        horizontalRotation = Mathf.DeltaAngle(0, horizontalRotation);
 
         // Calculate forces based on rotation differences
-        float verticalForce = Mathf.Clamp(verticalRotation * 0.1f, -10f, 10f); // Scale X-axis rotation for Y-axis movement
-        float forwardForce = Mathf.Clamp(forwardRotation * 0.1f, -10f, 10f);   // Scale Z-axis rotation for Z-axis movement
+        float verticalForce = Mathf.Clamp(verticalRotation * manualMovementAmplifier, -manualMovementSpeed, manualMovementSpeed); // Scale X-axis rotation for Y-axis movement
+        float horizontalForce = Mathf.Clamp(-horizontalRotation * manualMovementAmplifier, -manualMovementSpeed, manualMovementSpeed);   // Scale Z-axis rotation for Z-axis movement
 
         // Apply the forces to the kite's Rigidbody
-        rb.AddForce(new Vector3(0, verticalForce, forwardForce), ForceMode.Acceleration);
+        rb.AddForce(new Vector3(0, verticalForce, horizontalForce), ForceMode.Acceleration);
     }
 }
