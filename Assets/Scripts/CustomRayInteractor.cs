@@ -39,7 +39,7 @@ public class CustomRayInteractor : MonoBehaviour
                     originalMaterials[renderer] = renderer.material; // Store the original material
                 }
                 renderer.material = highlightMaterial; // Apply the highlight material
-                PlayHapticFeedback(12, 12.0f);
+                StartCoroutine(PlayHapticFeedback(12, 12.0f));
             }
 
             // Check for custom interaction script
