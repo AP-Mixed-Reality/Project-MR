@@ -19,6 +19,12 @@ public class KiteDriftWithEnhancements : MonoBehaviour
     public InputAction triggerAction; // Action for the trigger input
     public float pushForce = 10f; // Force to push the kite upwards
 
+
+    public Rigidbody spool;
+
+    private Quaternion spoolRotation;
+    private Quaternion SpoolStartRotation;
+
     private Rigidbody rb; // Reference to the kite's Rigidbody
     private Vector3 windDirection = Vector3.right; // Wind blowing direction
     private float swayTimer = 0f; // Timer for horizontal oscillation
@@ -29,6 +35,7 @@ public class KiteDriftWithEnhancements : MonoBehaviour
     {
         // Get the Rigidbody component
         rb = GetComponent<Rigidbody>();
+        SpoolStartRotation = spool.rotation;
 
 
         triggerAction.Enable();
@@ -50,6 +57,7 @@ public class KiteDriftWithEnhancements : MonoBehaviour
         ApplyHeightCorrection();
         EnforceBoundaries();
         ClampVelocity();
+        MoveKiteWithSpool();
     }
 
     private void UpdateWindDirection()
@@ -134,5 +142,29 @@ public class KiteDriftWithEnhancements : MonoBehaviour
     {
         // Disable the InputAction when the script is destroyed
         triggerAction.Disable();
+    }
+
+    private void MoveKiteWithSpool()
+    {
+        // Get the current spool rotation
+        spoolRotation = spool.rotation;
+
+        // Calculate the relative rotation from the initial rotation
+        Quaternion deltaRotation = spoolRotation * Quaternion.Inverse(SpoolStartRotation);
+
+        // Extract the rotation differences on the X and Z axes
+        float verticalRotation = deltaRotation.eulerAngles.z; // Spool X-axis affects kite Y-axis
+        float forwardRotation = deltaRotation.eulerAngles.x;  // Spool Z-axis affects kite Z-axis
+
+        // Adjust angles to range [-180, 180] for smooth transitions
+        verticalRotation = Mathf.DeltaAngle(0, verticalRotation);
+        forwardRotation = Mathf.DeltaAngle(0, forwardRotation);
+
+        // Calculate forces based on rotation differences
+        float verticalForce = Mathf.Clamp(verticalRotation * 0.1f, -10f, 10f); // Scale X-axis rotation for Y-axis movement
+        float forwardForce = Mathf.Clamp(forwardRotation * 0.1f, -10f, 10f);   // Scale Z-axis rotation for Z-axis movement
+
+        // Apply the forces to the kite's Rigidbody
+        rb.AddForce(new Vector3(0, verticalForce, forwardForce), ForceMode.Acceleration);
     }
 }
