@@ -24,7 +24,7 @@ public class CustomRayInteractor : MonoBehaviour
         Vector3 direction = rayOrigin ? rayOrigin.forward : transform.forward;
 
         //todo delete this: Visualize the ray
-        Debug.DrawRay(origin, direction * rayLength, Color.green);
+        //Debug.DrawRay(origin, direction * rayLength, Color.green);
 
         // Perform raycast
         if (Physics.Raycast(origin, direction, out RaycastHit hit, rayLength, interactionLayer))
