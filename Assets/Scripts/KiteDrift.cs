@@ -161,7 +161,7 @@ public class KiteDriftWithEnhancements : MonoBehaviour
         forwardRotation = Mathf.DeltaAngle(0, forwardRotation);
 
         // Calculate forces based on rotation differences
-        float verticalForce = Mathf.Clamp(-verticalRotation * 0.1f, -10f, 10f); // Scale X-axis rotation for Y-axis movement
+        float verticalForce = Mathf.Clamp(verticalRotation * 0.1f, -10f, 10f); // Scale X-axis rotation for Y-axis movement
         float forwardForce = Mathf.Clamp(forwardRotation * 0.1f, -10f, 10f);   // Scale Z-axis rotation for Z-axis movement
 
         // Apply the forces to the kite's Rigidbody
