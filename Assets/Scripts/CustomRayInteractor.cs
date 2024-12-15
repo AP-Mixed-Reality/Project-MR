@@ -15,6 +15,8 @@ public class CustomRayInteractor : MonoBehaviour
 
     public List<GameObject> controllers = new();
 
+    private bool wasHitting = false;
+
     private void Update()
     {
         // Default ray origin to this object's position if none is set
@@ -27,6 +29,13 @@ public class CustomRayInteractor : MonoBehaviour
         // Perform raycast
         if (Physics.Raycast(origin, direction, out RaycastHit hit, rayLength, interactionLayer))
         {
+            // Only trigger haptics when we FIRST hit something
+            if (!wasHitting)
+            {
+                StartCoroutine(PlayHapticFeedback(1, 0.1f));
+                wasHitting = true;
+            }
+
             // Handle interaction
             Debug.Log("Ray hit: " + hit.collider.gameObject.name);
 
@@ -39,7 +48,6 @@ public class CustomRayInteractor : MonoBehaviour
                     originalMaterials[renderer] = renderer.material; // Store the original material
                 }
                 renderer.material = highlightMaterial; // Apply the highlight material
-                StartCoroutine(PlayHapticFeedback(12, 12.0f));
             }
 
             // Check for custom interaction script
@@ -52,6 +60,11 @@ public class CustomRayInteractor : MonoBehaviour
         }
         else
         {
+            if (wasHitting) // Only trigger when we STOP hitting
+            {
+                StartCoroutine(PlayHapticFeedback(1, 0.05f)); // Even shorter feedback when leaving
+            }
+            wasHitting = false;
             // Restore materials when the ray is not hitting anything
             RestoreMaterials();
         }
