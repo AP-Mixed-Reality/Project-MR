@@ -5465,6 +5465,7 @@ MonoBehaviour:
     m_Bits: 2147483648
   rayOrigin: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 83eabfe673263a445972586e5d8b56ee, type: 2}
+  controllers: []
 --- !u!1001 &309487722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19935,7 +19936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1479356774035543518, guid: 6e539250bf585df4b9ca71bdbccbcf31, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 314.26
+      value: 314.133
       objectReference: {fileID: 0}
     - target: {fileID: 1479356774035543518, guid: 6e539250bf585df4b9ca71bdbccbcf31, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19955,11 +19956,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1479356774035543518, guid: 6e539250bf585df4b9ca71bdbccbcf31, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 539.43
+      value: 541.502
       objectReference: {fileID: 0}
     - target: {fileID: 1479356774035543518, guid: 6e539250bf585df4b9ca71bdbccbcf31, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 62.07
+      value: 61.96
       objectReference: {fileID: 0}
     - target: {fileID: 1479356774035543518, guid: 6e539250bf585df4b9ca71bdbccbcf31, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
